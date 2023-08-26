@@ -1,4 +1,4 @@
-->level_flow(->enter_new_level, ->level1_story, ->level1_end, ->game_loop)->
+->level_flow(->empty, ->level1_story, ->level1_end, ->game_loop)->
 ->level_flow(->enter_new_level, ->level2_story, ->level2_end, ->game_loop)->
 END
 
@@ -46,9 +46,10 @@ END
     
     
 === enter_new_level ===
-呼叫地面控制中心，我们现在进入了一块新的宙域。
-到达新宙域，继续执行任务。
-地面控制中心，看来这里还不是终点，我们将继续前进。
+-{ shuffle
+- 呼叫地面控制中心，我们现在进入了一块新的宙域。
+- 到达新宙域，继续执行任务。
+- 地面控制中心，看来这里还不是终点，我们将继续前进。}
 ->->
 
 === complete_level ===
@@ -57,6 +58,9 @@ END
 到达目标点，我们真是离地球越来越远了不是吗。
 + [下一关#next-level] ->->
     
+=== empty ===
+->->
+
 === level1_story === 
 探索者号呼叫地面控制中心。
 我们已经到达目标宙域，受电磁波影响无法确认周围环境。请下达指示。
