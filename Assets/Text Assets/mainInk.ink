@@ -38,9 +38,9 @@ END
 
 
 === game_loop ===
-+ [rotate] -> game_controls.rotate ->
-+ [move] -> game_controls.move ->
-+ [move_tile] -> game_controls.move_tile ->
++ [rotate #rotate] -> game_controls.rotate ->
++ [move #move] -> game_controls.move ->
++ [move_tile #move-tile] -> game_controls.move_tile ->
 + [exit #exit-level] ->->
 - -> game_loop
     
