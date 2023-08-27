@@ -79,6 +79,7 @@ public class Player : Unit
     }
     private void WalkUpdate()
     {
+        GameLogic.Instance.ShowActionText(PlayerAction.move);
         rb.velocity = dir.normalized * speed;
         lastFramePos = currFramePos;
         currFramePos = transform.position;

@@ -12,7 +12,7 @@ public class TextController : MonoBehaviour
 
     [SerializeField] private TMP_Text text;
 
-    public int textSpeedMilisecond = 50; 
+    public int textSpeedMilisecond = 50;
 
     private CancellationTokenSource cancelToken;
 
@@ -20,8 +20,13 @@ public class TextController : MonoBehaviour
     {
         bool canContinue;
         string str = storyManager.StepStory(out canContinue);
-         if (canContinue)
+
+        if (canContinue)
         {
+            if (str.Trim().Length == 0)
+            {
+                return DisplayOneLinePlotText();
+            }
             _ = DisplayTextByCharacter(str);
             return true;
         }
@@ -34,7 +39,7 @@ public class TextController : MonoBehaviour
 
     public async UniTask DisplayActionText(PlayerAction op)
     {
-        string str = storyManager.StepAction(op);
+        string str = storyManager.SelectAction(op);
 
         await DisplayTextByCharacter(str);
     }
@@ -53,7 +58,8 @@ public class TextController : MonoBehaviour
                 text.text += c;
             }
 
-        }catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             text.text = string.Empty;
         }

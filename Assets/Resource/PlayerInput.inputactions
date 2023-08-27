@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Rotate",
                     "type": "Button",
                     "id": "369e7c3c-4d21-49d2-a20a-d2fb03fe9799",
                     "expectedControlType": "Button",
@@ -125,7 +125,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

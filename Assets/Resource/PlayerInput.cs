@@ -55,7 +55,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Rotate"",
                     ""type"": ""Button"",
                     ""id"": ""369e7c3c-4d21-49d2-a20a-d2fb03fe9799"",
                     ""expectedControlType"": ""Button"",
@@ -147,7 +147,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -314,7 +314,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Common_Move = m_Common.FindAction("Move", throwIfNotFound: true);
         m_Common_Dash = m_Common.FindAction("Dash", throwIfNotFound: true);
         m_Common_DashRelease = m_Common.FindAction("DashRelease", throwIfNotFound: true);
-        m_Common_Attack = m_Common.FindAction("Attack", throwIfNotFound: true);
+        m_Common_Rotate = m_Common.FindAction("Rotate", throwIfNotFound: true);
         m_Common_AttackRelease = m_Common.FindAction("AttackRelease", throwIfNotFound: true);
         // Link
         m_Link = asset.FindActionMap("Link", throwIfNotFound: true);
@@ -387,7 +387,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Common_Move;
     private readonly InputAction m_Common_Dash;
     private readonly InputAction m_Common_DashRelease;
-    private readonly InputAction m_Common_Attack;
+    private readonly InputAction m_Common_Rotate;
     private readonly InputAction m_Common_AttackRelease;
     public struct CommonActions
     {
@@ -396,7 +396,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Common_Move;
         public InputAction @Dash => m_Wrapper.m_Common_Dash;
         public InputAction @DashRelease => m_Wrapper.m_Common_DashRelease;
-        public InputAction @Attack => m_Wrapper.m_Common_Attack;
+        public InputAction @Rotate => m_Wrapper.m_Common_Rotate;
         public InputAction @AttackRelease => m_Wrapper.m_Common_AttackRelease;
         public InputActionMap Get() { return m_Wrapper.m_Common; }
         public void Enable() { Get().Enable(); }
@@ -416,9 +416,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DashRelease.started += instance.OnDashRelease;
             @DashRelease.performed += instance.OnDashRelease;
             @DashRelease.canceled += instance.OnDashRelease;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
             @AttackRelease.started += instance.OnAttackRelease;
             @AttackRelease.performed += instance.OnAttackRelease;
             @AttackRelease.canceled += instance.OnAttackRelease;
@@ -435,9 +435,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DashRelease.started -= instance.OnDashRelease;
             @DashRelease.performed -= instance.OnDashRelease;
             @DashRelease.canceled -= instance.OnDashRelease;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
             @AttackRelease.started -= instance.OnAttackRelease;
             @AttackRelease.performed -= instance.OnAttackRelease;
             @AttackRelease.canceled -= instance.OnAttackRelease;
@@ -563,7 +563,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnDashRelease(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         void OnAttackRelease(InputAction.CallbackContext context);
     }
     public interface ILinkActions

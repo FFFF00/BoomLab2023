@@ -35,7 +35,7 @@ public class InkStoryManager : MonoBehaviour
         return "";
     }
 
-    public string StepAction(PlayerAction op)
+    public string SelectAction(PlayerAction op)
     {
         if(mainStory.canContinue) { throw new Exception("Wrong state! story can still proceed but you are asking for choice."); }
         //mainStory.ChooseChoiceIndex(((int)op));//有点tricky，不要轻易更改
@@ -48,18 +48,19 @@ public class InkStoryManager : MonoBehaviour
             _ => throw new NotImplementedException(),
         };
         ChooseChoiceWithTag(str);
+        
         var res = mainStory.ContinueMaximally();
         return res;
     }
     public void ExitLevel()
     {
         ChooseChoiceWithTag("exit-level");
-        mainStory.Continue();//跳过换行符空行
+        //mainStory.Continue();//跳过换行符空行
     }
     public void NextLevel()
     {
         ChooseChoiceWithTag("next-level");
-        mainStory.Continue();//跳过换行符空行
+        //mainStory.Continue();//跳过换行符空行
     }
 
     public void ChooseChoiceWithTag(string tag)

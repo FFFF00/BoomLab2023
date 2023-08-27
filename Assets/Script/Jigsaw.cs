@@ -16,6 +16,11 @@ public class Jigsaw : MonoBehaviour
     public bool rolling = false;
 
     private SpriteRenderer jigsawSprite;
+    private PlayerInput input;
+    private void Awake()
+    {
+        input = new PlayerInput();    
+    }
     private void Start()
     {
         transform.position = new Vector2(gridSize * Mathf.Clamp(Mathf.Round(transform.position.x), 0, 1),
@@ -30,7 +35,7 @@ public class Jigsaw : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (fixedPos)
+        if (fixedPos||!input.Common.enabled)
             return;
         
         float x = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - centerPos.x), 0, 1);
@@ -49,7 +54,7 @@ public class Jigsaw : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (fixedPos || rolling)
+        if (fixedPos || rolling || !input.Common.enabled)
             return;
         
         if (Mouse.current.rightButton.wasPressedThisFrame)
@@ -57,6 +62,7 @@ public class Jigsaw : MonoBehaviour
             transform.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f).OnComplete(() => rolling = false);
             jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f);
             rolling = true;
+            GameLogic.Instance.ShowActionText(PlayerAction.rotate);
         }
     }
 

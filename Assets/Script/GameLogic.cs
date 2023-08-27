@@ -8,13 +8,14 @@ using UnityEngine.InputSystem;
 
 public class GameLogic : MonoBehaviour
 {
+    public static GameLogic Instance;
     [SerializeField]
     private InkStoryManager storyManager;
     [SerializeField]
     private TextController textController;
-    [SerializeField]
-    private PlayerInput input;
 
+
+    private PlayerInput input;
     private PlayerInput.UIActions uiActions;
     private PlayerInput.CommonActions commonActions;
 
@@ -24,6 +25,11 @@ public class GameLogic : MonoBehaviour
     private UniTaskCompletionSource taskCompleter;
     public UniTask StoryDialogCompleted => taskCompleter.Task;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +37,7 @@ public class GameLogic : MonoBehaviour
         uiActions = input.UI;
         commonActions = input.Common;
         EnableUIAction();
-        commonActions.Disable();
+        DisableCommonAction();
         taskCompleter = new UniTaskCompletionSource();
 
         textController.DisplayOneLinePlotText();
@@ -70,7 +76,7 @@ public class GameLogic : MonoBehaviour
 
     public void ShowActionText(int op)
     {
-        ShowActionText((PlayerAction) op);
+        ShowActionText((PlayerAction)op);
     }
     public void ShowActionText(PlayerAction op)
     {

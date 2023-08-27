@@ -31,6 +31,7 @@ public class BasicInkExample : MonoBehaviour {
 		while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
+			Debug.Log ($"current line: {text}");
 			// This removes any white space from the text.
 			text = text.Trim();
 			// Display the text on screen!

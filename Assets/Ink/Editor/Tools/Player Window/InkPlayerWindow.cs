@@ -979,7 +979,8 @@ namespace Ink.UnityIntegration {
 		}
 		
 		static void ContinueStory () {
-			story.Continue();
+			var str = story.Continue();
+			Debug.Log(str);
 		}
 
 		static void AddStoryContent (string content, List<string> tags) {
