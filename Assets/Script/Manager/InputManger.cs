@@ -55,18 +55,20 @@ public class InputManger : MonoSingletion<InputManger>
 
     private void InputDisable(Message message = null)
     {
-        playerInput.enabled = false;
+        playerInput.Disable();
         dir = Vector2.zero;
         dirRaw = Vector2.zero;
         
         autoDashTimer = -2f;
         autoAttackTimer = -2f;
         var dpress = Time.time - autoDashTimer <= autoDashTime;
+
+        
     }
     
     private void InputEnable(Message message = null)
     {
-        playerInput.enabled = true;
+        playerInput.Enable();
     }
 
     void OnMove(InputValue value)

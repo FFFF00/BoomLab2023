@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -10,32 +11,36 @@ public class TextController : MonoBehaviour
     [SerializeField] private TMP_Text text;
 
 
-    public void DisplayPlotText()
+    public bool DisplayOneLinePlotText()
     {
-        while (true)
+        bool canContinue;
+        string str = storyManager.StepStory(out canContinue);
+        if (canContinue)
         {
-            bool canContinue = storyManager.StepStory(delegate (string str)
-            {
-                DisplayTextByCharacter(str);
-            });
-            if (!canContinue)
-            {
-                return;
-            }
+            text.text = "";//Çå¿Õ
+            _ = DisplayTextByCharacter(str);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void DisplayActionText(PlayerAction op)
+    public async UniTask DisplayActionText(PlayerAction op)
     {
-        storyManager.StepAction(delegate (string str) { DisplayTextByCharacter(str); }, op);
+        string str = storyManager.StepAction(op);
+        await DisplayTextByCharacter(str);
     }
 
-    public IEnumerator DisplayTextByCharacter(string str)
+
+    public async UniTask DisplayTextByCharacter(string str)
     {
-        foreach(var c in str)
+        foreach (var c in str)
         {
-            yield return new WaitForSecondsRealtime(0.1f);
+            await UniTask.Delay(c);
             text.text += c;
         }
+        return;
     }
 }

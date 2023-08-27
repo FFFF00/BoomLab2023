@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Ink.Runtime;
 using System;
 using System.Collections;
@@ -11,24 +12,24 @@ public class InkStoryManager : MonoBehaviour
     [SerializeField]
     public Story mainStory;
 
-
     public static InkStoryManager Instance;
     private void Awake()
     {
         Instance = this;
     }
 
-    public bool StepStory(Action<string> action)
+    public string StepStory(out bool canContinue)
     {
         if (mainStory.canContinue)
         {
-            action.Invoke(mainStory.Continue());
-            return true;
+            canContinue = true;
+            return mainStory.Continue();
         }
-        else return false;
+        else canContinue = false;
+        return "";
     }
 
-    public void StepAction(Action<string> callback, PlayerAction op)
+    public String StepAction(PlayerAction op)
     {
         if(mainStory.canContinue) { throw new Exception("Wrong state! story can still proceed but you are asking for choice."); }
         //mainStory.ChooseChoiceIndex(((int)op));//有点tricky，不要轻易更改
@@ -41,9 +42,12 @@ public class InkStoryManager : MonoBehaviour
             _ => throw new NotImplementedException(),
         };
         ChooseChoiceWithTag(str);
-        callback(mainStory.Continue());
+        return mainStory.Continue();
     }
-
+    public void ExitLevel()
+    {
+        StepAction(PlayerAction.exitLevel);
+    }
     public void NextLevel()
     {
         ChooseChoiceWithTag("next-level");
