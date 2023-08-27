@@ -48,9 +48,9 @@ public class InputManger : MonoSingletion<InputManger>
     
     private void AddListener()
     {
-        MessageManager.Instance.AddListener(MessageManager.MessageId.PlayerDeadPre, InputDisable);
-        MessageManager.Instance.AddListener(MessageManager.MessageId.NextStage, InputDisable);
-        MessageManager.Instance.AddListener(MessageManager.MessageId.ResetEffectBegin, InputEnable);
+        //MessageManager.Instance.AddListener(MessageManager.MessageId.PlayerDeadPre, InputDisable);
+        //MessageManager.Instance.AddListener(MessageManager.MessageId.NextStage, InputDisable);
+        //MessageManager.Instance.AddListener(MessageManager.MessageId.ResetEffectBegin, InputEnable);
     }
 
     private void InputDisable(Message message = null)
