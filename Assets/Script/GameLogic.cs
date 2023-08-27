@@ -18,7 +18,7 @@ public class GameLogic : MonoBehaviour
     private PlayerInput.UIActions uiActions;
     private PlayerInput.CommonActions commonActions;
 
-    private bool allowMoveTextUpdate, allowMoveTileTextUpdate, allowRotateTileTextUpdate = true;
+    private bool allowMoveTextUpdate = true, allowMoveTileTextUpdate = true, allowRotateTileTextUpdate = true;
     private int intervalMiliseconds = 1000;
 
     private UniTaskCompletionSource taskCompleter;
@@ -48,19 +48,23 @@ public class GameLogic : MonoBehaviour
     {
         if (uiActions.DialogNext.IsPressed())
         {
-            bool canContinue = textController.DisplayOneLinePlotText();
-            if (canContinue)
-            {
-                _ = TemporarilyDisableUIAction(500);
-            }
-            else
-            {
-                //已经完成当前剧情对话
-                taskCompleter.TrySetResult();
-                DisableUIAction();
-                EnableCommonAction();
-            }
+            ShowOneLineOfDialog();
+        }
+    }
 
+    private void ShowOneLineOfDialog()
+    {
+        bool canContinue = textController.DisplayOneLinePlotText();
+        if (canContinue)
+        {
+            _ = TemporarilyDisableUIAction(500);
+        }
+        else
+        {
+            //已经完成当前剧情对话
+            taskCompleter.TrySetResult();
+            DisableUIAction();
+            EnableCommonAction();
         }
     }
 
@@ -98,6 +102,7 @@ public class GameLogic : MonoBehaviour
     public void NextLevel()
     {
         storyManager.NextLevel();
+        ShowOneLineOfDialog();
         taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
         EnableUIAction();
         DisableCommonAction();
@@ -105,6 +110,7 @@ public class GameLogic : MonoBehaviour
     public void ExitLevel()
     {
         storyManager.ExitLevel();
+        ShowOneLineOfDialog();
         taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
         EnableUIAction();
         DisableCommonAction();

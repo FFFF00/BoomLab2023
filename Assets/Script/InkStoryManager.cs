@@ -53,11 +53,13 @@ public class InkStoryManager : MonoBehaviour
     }
     public void ExitLevel()
     {
-        StepAction(PlayerAction.exitLevel);
+        ChooseChoiceWithTag("exit-level");
+        mainStory.Continue();//跳过换行符空行
     }
     public void NextLevel()
     {
         ChooseChoiceWithTag("next-level");
+        mainStory.Continue();//跳过换行符空行
     }
 
     public void ChooseChoiceWithTag(string tag)

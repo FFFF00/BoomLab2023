@@ -19,11 +19,9 @@ public class TextController : MonoBehaviour
     public bool DisplayOneLinePlotText()
     {
         bool canContinue;
-        cancelToken = new CancellationTokenSource();
         string str = storyManager.StepStory(out canContinue);
          if (canContinue)
         {
-            cancelToken.Cancel();
             _ = DisplayTextByCharacter(str);
             return true;
         }
@@ -37,12 +35,16 @@ public class TextController : MonoBehaviour
     public async UniTask DisplayActionText(PlayerAction op)
     {
         string str = storyManager.StepAction(op);
+
         await DisplayTextByCharacter(str);
     }
 
 
     public async UniTask DisplayTextByCharacter(string str)
     {
+        cancelToken?.Cancel();//取消之前输出操作
+        text.text = string.Empty;//置空
+        cancelToken = new CancellationTokenSource();//代表本次操作
         try
         {
             foreach (var c in str)
@@ -50,6 +52,7 @@ public class TextController : MonoBehaviour
                 await UniTask.Delay(textSpeedMilisecond, cancellationToken: cancelToken.Token);
                 text.text += c;
             }
+
         }catch (Exception ex)
         {
             text.text = string.Empty;
