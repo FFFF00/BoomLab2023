@@ -250,7 +250,7 @@
             "id": "4f7e31a0-b203-4d09-81ca-f96620d4dc53",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "DialogNext",
                     "type": "Button",
                     "id": "e0986809-d444-4a9f-a5e3-87e4de8eac09",
                     "expectedControlType": "Button",
@@ -263,11 +263,22 @@
                 {
                     "name": "",
                     "id": "d87e3acd-3779-4a1a-95ef-40b8e02ce8d7",
-                    "path": "",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "DialogNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0da27558-8947-4117-a6d6-7ed2071a515a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DialogNext",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

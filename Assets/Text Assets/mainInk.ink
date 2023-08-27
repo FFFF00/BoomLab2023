@@ -1,7 +1,14 @@
-->level_flow(->empty, ->level1_story, ->level1_end, ->game_loop)->
-->level_flow(->enter_new_level, ->level2_story, ->level2_end, ->game_loop)->
+->level1_flow ->
+->level2_flow ->
 END
 
+=== level1_flow() ===
+-> level_flow(->empty, ->level1_story, ->level1_end, ->game_loop)
+->->
+
+=== level2_flow()===
+->level_flow(->enter_new_level, ->level2_story, ->level2_end, ->game_loop)
+->->
 
 === level_flow (-> level_start, ->levelbody, ->level_end, ->loop) ===
 -> level_start ->
@@ -46,16 +53,19 @@ END
     
     
 === enter_new_level ===
--{ shuffle
-- 呼叫地面控制中心，我们现在进入了一块新的宙域。
-- 到达新宙域，继续执行任务。
-- 地面控制中心，看来这里还不是终点，我们将继续前进。}
+- { shuffle:
+    - 呼叫地面控制中心，我们现在进入了一块新的宙域。
+    - 到达新宙域，继续执行任务。
+    - 地面控制中心，看来这里还不是终点，我们将继续前进。
+    }
 ->->
 
 === complete_level ===
-呼叫地面控制中心，正在离开该宙域。
-地面控制中心，我已脱离这片宙域，探索前方边界。
-到达目标点，我们真是离地球越来越远了不是吗。
+- {shuffle:
+    - 呼叫地面控制中心，正在离开该宙域。
+    - 地面控制中心，我已脱离这片宙域，探索前方边界。
+    - 到达目标点，我们真是离地球越来越远了不是吗。
+    }
 + [下一关#next-level] ->->
     
 === empty ===
