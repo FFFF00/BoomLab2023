@@ -472,7 +472,39 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57e6ea92-2664-4570-a8ae-95f43409e144
+    m_ActionName: 'Common/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d51cb0a-b369-45e1-87e5-0bf200be610a
+    m_ActionName: 'Common/Dash[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df466185-80a8-4bca-a32b-4834710b907b
+    m_ActionName: 'Common/DashRelease[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 369e7c3c-4d21-49d2-a20a-d2fb03fe9799
+    m_ActionName: 'Common/Rotate[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03d020c6-32ad-41e7-b2ab-87426c59a086
+    m_ActionName: 'Common/AttackRelease[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0a5a8989-fe17-4afd-9698-527dfcdd6723
+    m_ActionName: 'Link/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 734dc309-c7d9-47e3-9646-95b50f3fca7e
+    m_ActionName: 'Link/Dash[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0986809-d444-4a9f-a5e3-87e4de8eac09
+    m_ActionName: 'UI/DialogNext[/Keyboard/space,/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Common
@@ -2063,6 +2095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyManager: {fileID: 1842810394}
   text: {fileID: 923137401}
+  textSpeedMilisecond: 50
 --- !u!1 &1724629668
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Message
     public int taskId { set; get; }
     public int memeId { set; get; }
     public int num { set; get; }
-    
+
     public float f { set; get; }
     public Vector2 pos { set; get; }
     public Vector2 pos2 { set; get; }

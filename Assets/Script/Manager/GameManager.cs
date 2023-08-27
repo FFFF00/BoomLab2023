@@ -16,11 +16,11 @@ public class GameManager : MonoSingletion<GameManager>
     void Start()
     {
         //非测试时注释掉
-//#if UNITY_EDITOR
+        //#if UNITY_EDITOR
         LoadSence();
-//#endif
+        //#endif
         AddListener();
-        
+
     }
 
     private void AddListener()
@@ -36,7 +36,7 @@ public class GameManager : MonoSingletion<GameManager>
 
         MessageManager.Instance.AddListener(MessageManager.MessageId.IconCollisionBegin, GetIcon);
     }
-    
+
     public class Data
     {
         public Vector2 pos;
@@ -159,7 +159,7 @@ public class GameManager : MonoSingletion<GameManager>
     {
         ReloadSence(null);
     }
-    
+
     public void LoadSence()
     {
         senceLoad = SceneManager.LoadSceneAsync(currStage, LoadSceneMode.Additive);
@@ -167,7 +167,7 @@ public class GameManager : MonoSingletion<GameManager>
         senceLoad.completed += CompletLoadScene;
         ActiveSence();
     }
-    
+
     public void LoadNextSence(Message message)
     {
         deathCount = 0;
@@ -177,14 +177,15 @@ public class GameManager : MonoSingletion<GameManager>
 
     private IEnumerator LoadNextSenceCoroutine(Message message)
     {
-        if (senceLock) {
+        if (senceLock)
+        {
             senceLock = false;
             yield return null;
-            
+
             //要在卸载场景前完成统计
             currStage = SceneManager.GetActiveScene().name;
             currTimeDic.Add(currStage, Time.time - currTimer);
-            
+
             totalTime += currTimeDic[currStage];
             if (!totalTimeDic.ContainsKey(currStage))
             {
@@ -212,7 +213,7 @@ public class GameManager : MonoSingletion<GameManager>
                 //重新录制
                 MessageManager.Instance.SendMessage(MessageManager.MessageId.RecordEnd);
             }
-            
+
             //要在卸载场景前完成统计
             //Debug.Log("unload后场景：" + currStage);
             nextStage = message.nextStageName;
@@ -249,14 +250,14 @@ public class GameManager : MonoSingletion<GameManager>
 
         Scene scene = SceneManager.GetSceneByName(currStage);
         SceneManager.SetActiveScene(scene);
-        MessageManager.Instance.SendMessage(MessageManager.MessageId.CompleteLoadStage);        
+        MessageManager.Instance.SendMessage(MessageManager.MessageId.CompleteLoadStage);
         MessageManager.Instance.SendMessage(MessageManager.MessageId.RecordBegin);
         MessageManager.Instance.SendMessage(MessageManager.MessageId.PlayerReset);
 
         CountClear();
         GameLogic.Instance.NextLevel();
     }
-    
+
     #endregion
 
     #region 管理
@@ -274,7 +275,7 @@ public class GameManager : MonoSingletion<GameManager>
         senceGameObjectCacheKV.Remove(jigsaw.transform.position);
         senceGameObjectCacheKV.Add(jigsaw.transform.position, jigsaw);
         senceGameObjectCacheVK.Remove(jigsaw);
-        senceGameObjectCacheVK.Add(jigsaw,jigsaw.transform.position);
+        senceGameObjectCacheVK.Add(jigsaw, jigsaw.transform.position);
     }
 
     public void UpdateObject(Jigsaw jigsaw)
@@ -285,7 +286,7 @@ public class GameManager : MonoSingletion<GameManager>
         Jigsaw target = senceGameObjectCacheKV[jigsaw.transform.position];
         if (target.fixedPos)
             return;
-        
+
         target.MoveTo(oldpos);
 
         RegisterObject(jigsaw);
