@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: f7557a25d655dc0468d8aadfab5ce50e
+guid: accd74713a20d1a4c9cf0b8160563f1e
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7935605981947258971
+    second: L2-2_0
+  - first:
+      213: -6036521037954708410
+    second: L2-2_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -53,7 +59,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0.58
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -91,36 +97,64 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: L2-2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 191
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a7919077601fd190800000000000000
+      internalID: -7935605981947258971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: L2-2_1
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 0
+        width: 217
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c898d4918f93ca0800000000000000
+      internalID: -6036521037954708410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
-    physicsShape:
-    - - {x: -172, y: 173.5}
-      - {x: -172, y: -173.5}
-      - {x: 172, y: -173.5}
-      - {x: 172, y: 173.5}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      L2-2_0: -7935605981947258971
+      L2-2_1: -6036521037954708410
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
