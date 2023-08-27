@@ -10,12 +10,18 @@ using UnityEngine.UI;
 public class InkStoryManager : MonoBehaviour
 {
     [SerializeField]
+    private TextAsset inkJSONAsset;
     public Story mainStory;
 
     public static InkStoryManager Instance;
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        mainStory = new Story(inkJSONAsset.text);
     }
 
     public string StepStory(out bool canContinue)
@@ -29,7 +35,7 @@ public class InkStoryManager : MonoBehaviour
         return "";
     }
 
-    public String StepAction(PlayerAction op)
+    public string StepAction(PlayerAction op)
     {
         if(mainStory.canContinue) { throw new Exception("Wrong state! story can still proceed but you are asking for choice."); }
         //mainStory.ChooseChoiceIndex(((int)op));//有点tricky，不要轻易更改
@@ -42,7 +48,8 @@ public class InkStoryManager : MonoBehaviour
             _ => throw new NotImplementedException(),
         };
         ChooseChoiceWithTag(str);
-        return mainStory.Continue();
+        var res = mainStory.ContinueMaximally();
+        return res;
     }
     public void ExitLevel()
     {
@@ -66,6 +73,7 @@ public class InkStoryManager : MonoBehaviour
 }
 
 
+[Serializable]
 public enum PlayerAction
 {
     rotate, move, moveTile, exitLevel

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Fungus;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,15 +16,32 @@ public class GameLogic : MonoBehaviour
     private PlayerInput input;
 
     private PlayerInput.UIActions uiActions;
+    private PlayerInput.CommonActions commonActions;
 
     private bool allowMoveTextUpdate, allowMoveTileTextUpdate, allowRotateTileTextUpdate = true;
-    private int intervalMiliseconds = 8000;
+    private int intervalMiliseconds = 1000;
+
+    private UniTaskCompletionSource taskCompleter;
+    public UniTask StoryDialogCompleted => taskCompleter.Task;
+
     // Start is called before the first frame update
     void Start()
     {
+        input = new PlayerInput();
         uiActions = input.UI;
+        commonActions = input.Common;
         EnableUIAction();
+        commonActions.Disable();
+        taskCompleter = new UniTaskCompletionSource();
+
+        textController.DisplayOneLinePlotText();
     }
+
+    private PlayerInput.CommonActions GetCommonActions()
+    {
+        return commonActions;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -37,12 +55,19 @@ public class GameLogic : MonoBehaviour
             }
             else
             {
+                //已经完成当前剧情对话
+                taskCompleter.TrySetResult();
                 DisableUIAction();
+                EnableCommonAction();
             }
 
         }
     }
 
+    public void ShowActionText(int op)
+    {
+        ShowActionText((PlayerAction) op);
+    }
     public void ShowActionText(PlayerAction op)
     {
         switch (op)
@@ -73,10 +98,16 @@ public class GameLogic : MonoBehaviour
     public void NextLevel()
     {
         storyManager.NextLevel();
+        taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
+        EnableUIAction();
+        DisableCommonAction();
     }
     public void ExitLevel()
     {
         storyManager.ExitLevel();
+        taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
+        EnableUIAction();
+        DisableCommonAction();
     }
 
     public void DisableUIAction()
@@ -88,6 +119,15 @@ public class GameLogic : MonoBehaviour
     public void EnableUIAction()
     {
         uiActions.Enable();
+    }
+
+    public void EnableCommonAction()
+    {
+        commonActions.Enable();
+    }
+    public void DisableCommonAction()
+    {
+        commonActions.Disable();
     }
     private async UniTask TemporarilyDisableUIAction(int duration)
     {

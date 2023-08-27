@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,19 +12,24 @@ public class TextController : MonoBehaviour
 
     [SerializeField] private TMP_Text text;
 
+    public int textSpeedMilisecond = 50; 
+
+    private CancellationTokenSource cancelToken;
 
     public bool DisplayOneLinePlotText()
     {
         bool canContinue;
+        cancelToken = new CancellationTokenSource();
         string str = storyManager.StepStory(out canContinue);
-        if (canContinue)
+         if (canContinue)
         {
-            text.text = "";//Çå¿Õ
+            cancelToken.Cancel();
             _ = DisplayTextByCharacter(str);
             return true;
         }
         else
         {
+            cancelToken.Cancel();
             return false;
         }
     }
@@ -36,11 +43,16 @@ public class TextController : MonoBehaviour
 
     public async UniTask DisplayTextByCharacter(string str)
     {
-        foreach (var c in str)
+        try
         {
-            await UniTask.Delay(c);
-            text.text += c;
+            foreach (var c in str)
+            {
+                await UniTask.Delay(textSpeedMilisecond, cancellationToken: cancelToken.Token);
+                text.text += c;
+            }
+        }catch (Exception ex)
+        {
+            text.text = string.Empty;
         }
-        return;
     }
 }
