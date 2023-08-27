@@ -35,7 +35,7 @@ public class Jigsaw : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (fixedPos||!input.Common.enabled)
+        if (fixedPos||!GameLogic.Instance.commonActions.enabled)
             return;
         
         float x = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - centerPos.x), 0, 1);
@@ -54,7 +54,7 @@ public class Jigsaw : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (fixedPos || rolling || !input.Common.enabled)
+        if (fixedPos || rolling || !GameLogic.Instance.commonActions.enabled)
             return;
         
         if (Mouse.current.rightButton.wasPressedThisFrame)

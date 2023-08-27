@@ -254,6 +254,7 @@ public class GameManager : MonoSingletion<GameManager>
         MessageManager.Instance.SendMessage(MessageManager.MessageId.PlayerReset);
 
         CountClear();
+        GameLogic.Instance.NextLevel();
     }
     
     #endregion

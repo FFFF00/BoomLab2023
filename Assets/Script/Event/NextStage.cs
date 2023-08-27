@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,11 +29,18 @@ public class NextStage : MonoBehaviour
                 }
                 //Debug.Log("next : " + nextStage);
             }
-
-            Message message = new Message();
-            message.nextStageName = nextStage;
-            message.replay = replay;
-            MessageManager.Instance.SendMessage(MessageManager.MessageId.NextStage, message);
+            _ = StartEndDialogAndNextStage();
         }
     }
+
+    private async UniTask StartEndDialogAndNextStage()
+    {
+        GameLogic.Instance.ExitLevel();
+        await GameLogic.Instance.StoryDialogCompleted;
+        Message message = new Message();
+        message.nextStageName = nextStage;
+        message.replay = replay;
+        MessageManager.Instance.SendMessage(MessageManager.MessageId.NextStage, message);
+    }
+
 }

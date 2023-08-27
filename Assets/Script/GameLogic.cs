@@ -16,11 +16,13 @@ public class GameLogic : MonoBehaviour
 
 
     private PlayerInput input;
-    private PlayerInput.UIActions uiActions;
-    private PlayerInput.CommonActions commonActions;
+    [HideInInspector]
+    public PlayerInput.UIActions uiActions;
+    [HideInInspector]
+    public PlayerInput.CommonActions commonActions;
 
     private bool allowMoveTextUpdate = true, allowMoveTileTextUpdate = true, allowRotateTileTextUpdate = true;
-    private int intervalMiliseconds = 1000;
+    private int intervalMiliseconds = 8000;
 
     private UniTaskCompletionSource taskCompleter;
     public UniTask StoryDialogCompleted => taskCompleter.Task;
@@ -29,17 +31,19 @@ public class GameLogic : MonoBehaviour
     {
         Instance = this;
     }
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         input = new PlayerInput();
         uiActions = input.UI;
         commonActions = input.Common;
         EnableUIAction();
         DisableCommonAction();
-        taskCompleter = new UniTaskCompletionSource();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        taskCompleter = new UniTaskCompletionSource();
         textController.DisplayOneLinePlotText();
     }
 
@@ -105,17 +109,19 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
-    public void NextLevel()
+
+    public void ExitLevel()
     {
-        storyManager.NextLevel();
+        storyManager.ExitLevel();
         ShowOneLineOfDialog();
         taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
         EnableUIAction();
         DisableCommonAction();
     }
-    public void ExitLevel()
+
+    public void NextLevel()
     {
-        storyManager.ExitLevel();
+        storyManager.NextLevel();
         ShowOneLineOfDialog();
         taskCompleter = new UniTaskCompletionSource();//重置剧情对话状态
         EnableUIAction();

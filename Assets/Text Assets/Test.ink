@@ -19,7 +19,7 @@ END
 
 === game_controls ===
 = rotate
-<>{shuffle:
+{shuffle:
     - 观测到剧烈震动，请检查异常！
     - 空间正在转移，重复一遍，空间正在转移。
     - 看起来，有一片空间被移动了。
@@ -28,34 +28,34 @@ END
 ->->
 
 = move
-<>{shuffle: 
+{shuffle: 
     - 地面控制中心，我们正在移动。
     - 注意行驶方向，前进。
     }
 ->->
 
 = move_tile
-<>{shuffle: 
-    - 我感到方位正在以一种奇怪的方式改变。
-    - 有一片空间正在旋转。
-    - 所有人注意，可能会迎来剧烈冲击，抓紧身边的人。
-    - 确认到空间变动，小心。
+{shuffle: 
+    - nihaoma
+    - nihao
+    - wohenhao
+    - nizhenhao
     }
 ->->
 
 === game_loop ===
-+ [rotate #rotate] -> game_controls.rotate ->
-+ [move #move] -> game_controls.move ->
-+ [move_tile #move-tile] -> game_controls.move_tile ->
++ [rotate #rotate]-> game_controls.rotate ->
++ [move #move]-> game_controls.move ->
++ [move_tile #move-tile]-> game_controls.move_tile ->
 + [exit #exit-level] ->->
 - -> game_loop
     
     
 === enter_new_level ===
 <>{shuffle:
-    - 呼叫地面控制中心，我们现在进入了一块新的宙域。
-    - 到达新宙域，继续执行任务。
-    - 地面控制中心，看来这里还不是终点，我们将继续前进。
+    - nihao
+    - nihaoma
+    - wohenhao
     }
 ->->
 
