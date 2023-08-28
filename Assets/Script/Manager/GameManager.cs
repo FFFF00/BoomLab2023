@@ -289,6 +289,8 @@ public class GameManager : MonoSingletion<GameManager>
 
         target.MoveTo(oldpos);
 
+        GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.moveTile);
+
         RegisterObject(jigsaw);
         RegisterObject(target);
     }

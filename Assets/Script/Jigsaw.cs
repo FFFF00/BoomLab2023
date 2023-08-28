@@ -28,7 +28,12 @@ public class Jigsaw : MonoBehaviour
         centerPos = new Vector2(gridSize / 2, gridSize / 2);
         GameManager.Instance.RegisterObject(this);   
         
-        jigsawSprite = GetComponentInChildren<SpriteRenderer>();
+        var list = GetComponentsInChildren<SpriteRenderer>(includeInactive: false);
+        foreach (var sprite in list)
+        {
+            if (sprite.enabled)
+                jigsawSprite = sprite;
+        }
         jigsawSprite.transform.parent = null;
         jigsawSprite.transform.position = transform.position;
     }
@@ -48,7 +53,6 @@ public class Jigsaw : MonoBehaviour
         GameManager.Instance.UpdateObject(this);
         
         jigsawSprite.transform.DOMove(transform.position, 0.5f);
-        GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.moveTile);
 
         //jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + Vector3.one, 0.5f);
         //Debug.Log(name + " 被抓了! "); //+ Time.frameCount);
