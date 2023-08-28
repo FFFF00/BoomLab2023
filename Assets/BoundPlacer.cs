@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Grid))]
 public class BoundPlacer : MonoBehaviour
 {
-    [SerializeField]
     private Grid grid;
     [SerializeField] private GameObject boundRootPrefab;
     // Start is called before the first frame update
 
     private GameObject boundRoot;
+
+    private void Awake()
+    {
+        grid = GetComponent<Grid>();
+    }
     void Start()
     {
         var centerpos = GetCenterPos();
         
         boundRoot = Instantiate(boundRootPrefab);
         boundRoot.transform.parent = this.transform;
-        boundRoot.transform.position = centerpos;
+        boundRoot.transform.localPosition = centerpos;
+        boundRoot.transform.localScale = transform.localScale;
     }
 
     private Vector3 GetCenterPos()
@@ -31,6 +37,6 @@ public class BoundPlacer : MonoBehaviour
                 maxcoord = k;
             }
         }
-        return grid.CellToWorld(maxcoord);
+        return grid.CellToLocal(maxcoord);
     }
 }
