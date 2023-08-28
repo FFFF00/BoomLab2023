@@ -73,7 +73,7 @@ public class InputManger : MonoSingletion<InputManger>
     
     public void InputEnable(Message message = null)
     {
-        playerInput.enabled = false;
+        playerInput.enabled = true;
     }
 
     void OnMove(InputValue value)
