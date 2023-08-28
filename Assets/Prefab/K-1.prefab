@@ -136,6 +136,7 @@ MonoBehaviour:
   centerPos: {x: 0, y: 0}
   fixedPos: 0
   rolling: 0
+  CoordInGrid: {x: 0, y: 0, z: 0}
 --- !u!50 &7566458729670777900
 Rigidbody2D:
   serializedVersion: 4

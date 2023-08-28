@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using System.Text;
 using System;
+using System.Linq;
 
 public class GameManager : MonoSingletion<GameManager>
 {
@@ -261,8 +262,8 @@ public class GameManager : MonoSingletion<GameManager>
     #endregion
 
     #region 管理
-    private Dictionary<Vector3Int, Jigsaw> senceGameObjectCacheKV = new ();
-    public Dictionary<Vector3Int, Jigsaw> SceneGOCacheKV { get => senceGameObjectCacheKV; }
+    private Dictionary<Vector3Int, Jigsaw> sceneGameObjectCacheKV = new ();
+    public Dictionary<Vector3Int, Jigsaw> SceneGOCacheKV { get => sceneGameObjectCacheKV; }
     private Dictionary<Jigsaw, Vector3Int> senceGameObjectCacheVK = new ();
 
     public void RegisterObject(Message message)
@@ -273,8 +274,8 @@ public class GameManager : MonoSingletion<GameManager>
 
     public void RegisterObject(Jigsaw jigsaw)
     {
-        senceGameObjectCacheKV.Remove(jigsaw.CellCoord);
-        senceGameObjectCacheKV.Add(jigsaw.CellCoord, jigsaw);
+        sceneGameObjectCacheKV.Remove(jigsaw.CellCoord);
+        sceneGameObjectCacheKV.Add(jigsaw.CellCoord, jigsaw);
         senceGameObjectCacheVK.Remove(jigsaw);
         senceGameObjectCacheVK.Add(jigsaw, jigsaw.CellCoord);
     }
@@ -284,7 +285,7 @@ public class GameManager : MonoSingletion<GameManager>
         Vector3Int oldpos = senceGameObjectCacheVK[jigsaw];
         if (oldpos.Equals(jigsaw.CellCoord))
             return;
-        Jigsaw target = senceGameObjectCacheKV[jigsaw.CellCoord];
+        Jigsaw target = sceneGameObjectCacheKV[jigsaw.CellCoord];
         if (target.fixedPos)
             return;
 
@@ -298,13 +299,15 @@ public class GameManager : MonoSingletion<GameManager>
 
     public bool CheckLegalTargetPos(Vector3Int targetPos)
     {
-        Jigsaw target = senceGameObjectCacheKV[targetPos];
+        if (!sceneGameObjectCacheKV.Keys.Contains(targetPos))
+            return false;
+        Jigsaw target = sceneGameObjectCacheKV[targetPos];
         return !target.fixedPos;
     }
 
     public void ClearObjectCache()
     {
-        senceGameObjectCacheKV.Clear();
+        sceneGameObjectCacheKV.Clear();
         senceGameObjectCacheVK.Clear();
     }
     #endregion

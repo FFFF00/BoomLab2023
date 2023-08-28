@@ -12,18 +12,17 @@ public class BoundPlacer : MonoBehaviour
     private GameObject boundRoot;
     void Start()
     {
-        var centerpos = GetPosOfCenter();
+        var centerpos = GetCenterPos();
         
         boundRoot = Instantiate(boundRootPrefab);
         boundRoot.transform.parent = this.transform;
         boundRoot.transform.position = centerpos;
     }
 
-    private Vector3 GetPosOfCenter()
+    private Vector3 GetCenterPos()
     {
         var kvs = GameManager.Instance.SceneGOCacheKV;
         Vector3Int maxcoord = new Vector3Int(-100, -100, 0);
-        Vector3Int mincoord = new Vector3Int(100, 100, 0);
         foreach (var kv in kvs)
         {
             var k = kv.Key;
@@ -31,13 +30,7 @@ public class BoundPlacer : MonoBehaviour
             {
                 maxcoord = k;
             }
-            if(k.x <= mincoord.x && k.y  <= mincoord.y)
-            {
-                mincoord = k;
-            }
         }
-        var maxpos = grid.CellToWorld(maxcoord);
-        var minpos = grid.CellToWorld(mincoord);
-        return (maxpos + minpos) / 2;
+        return grid.CellToWorld(maxcoord);
     }
 }

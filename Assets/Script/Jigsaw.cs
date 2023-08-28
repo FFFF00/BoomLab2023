@@ -9,7 +9,7 @@ using UnityEngine.PlayerLoop;
 
 public class Jigsaw : MonoBehaviour
 {
-    public float gridSize = 4;
+
     public Vector2 centerPos;
 
     public bool fixedPos = false;
@@ -23,6 +23,10 @@ public class Jigsaw : MonoBehaviour
 
 
     private Grid grid;
+
+    //prefab的pivot被设置成了center中间，这和grid这套系统从左下角开始算格子的逻辑不符，必须加offset
+    public Vector3 pivotOffset => grid.cellSize / 2;
+
     private void Awake()
     {
         input = new PlayerInput();
@@ -30,10 +34,9 @@ public class Jigsaw : MonoBehaviour
 
         //align to grid
         Vector3Int coord = grid.WorldToCell(transform.position);
-        Vector3 snappedLocalPos = grid.CellToLocal(coord);
+        Vector3 snappedLocalPos = grid.CellToLocal(coord) + pivotOffset;
         transform.localPosition = snappedLocalPos;
 
-        centerPos = new Vector2(gridSize / 2, gridSize / 2);
         GameManager.Instance.RegisterObject(this);
 
         var list = GetComponentsInChildren<SpriteRenderer>(includeInactive: false);
@@ -55,8 +58,7 @@ public class Jigsaw : MonoBehaviour
         //float x = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - centerPos.x), 0, 1);
         //float y = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - centerPos.y), 0, 1);
         Vector3Int coord = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        var realCoord = new Vector3Int(coord.x, coord.y, 0);
-        Vector3 targetPos = grid.CellToLocal(coord);
+        Vector3 targetPos = grid.CellToLocal(coord) + pivotOffset;
         //Vector2 targetPos = new Vector2(gridSize * x, gridSize * y);
         if (!GameManager.Instance.CheckLegalTargetPos(coord))
             return;
@@ -100,7 +102,7 @@ public class Jigsaw : MonoBehaviour
 
     public void MoveTo(Vector3Int coord)
     {
-        var targetPos = grid.CellToWorld(coord);
+        var targetPos = grid.CellToWorld(coord) + pivotOffset;
         transform.position = targetPos;
         jigsawSprite.transform.DOMove(targetPos, 0.5f);
         //Debug.Log(name + " 动了 " + Time.frameCount);
