@@ -65,8 +65,13 @@ public class Jigsaw : MonoBehaviour
         
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            transform.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f).OnComplete(() => rolling = false);
-            jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f);
+            //transform.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f).OnComplete(() => rolling = false);
+
+            jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0, 0, 90), 0.5f).OnComplete(delegate (){
+                transform.transform.Rotate(new Vector3(0, 0, 90));
+                rolling = false;
+            });
+            
             rolling = true;
             GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.rotate);
         }
