@@ -71,7 +71,7 @@ public class InkStoryManager : MonoBehaviour
             if (choice.tags.Contains(tag))
             { mainStory.ChooseChoiceIndex(choice.index); return; }
         }
-        throw new Exception($"Tag {tag} not found in current choices!");
+        Debug.Log($"Tag {tag} not found in current choices!");
     }
 }
 

@@ -261,8 +261,9 @@ public class GameManager : MonoSingletion<GameManager>
     #endregion
 
     #region 管理
-    private Dictionary<Vector2, Jigsaw> senceGameObjectCacheKV = new Dictionary<Vector2, Jigsaw>();
-    private Dictionary<Jigsaw, Vector2> senceGameObjectCacheVK = new Dictionary<Jigsaw, Vector2>();
+    private Dictionary<Vector3Int, Jigsaw> senceGameObjectCacheKV = new ();
+    public Dictionary<Vector3Int, Jigsaw> SceneGOCacheKV { get => senceGameObjectCacheKV; }
+    private Dictionary<Jigsaw, Vector3Int> senceGameObjectCacheVK = new ();
 
     public void RegisterObject(Message message)
     {
@@ -272,18 +273,18 @@ public class GameManager : MonoSingletion<GameManager>
 
     public void RegisterObject(Jigsaw jigsaw)
     {
-        senceGameObjectCacheKV.Remove(jigsaw.transform.position);
-        senceGameObjectCacheKV.Add(jigsaw.transform.position, jigsaw);
+        senceGameObjectCacheKV.Remove(jigsaw.CellCoord);
+        senceGameObjectCacheKV.Add(jigsaw.CellCoord, jigsaw);
         senceGameObjectCacheVK.Remove(jigsaw);
-        senceGameObjectCacheVK.Add(jigsaw, jigsaw.transform.position);
+        senceGameObjectCacheVK.Add(jigsaw, jigsaw.CellCoord);
     }
 
     public void UpdateObject(Jigsaw jigsaw)
     {
-        Vector2 oldpos = senceGameObjectCacheVK[jigsaw];
-        if (oldpos.Equals(jigsaw.transform.position))
+        Vector3Int oldpos = senceGameObjectCacheVK[jigsaw];
+        if (oldpos.Equals(jigsaw.CellCoord))
             return;
-        Jigsaw target = senceGameObjectCacheKV[jigsaw.transform.position];
+        Jigsaw target = senceGameObjectCacheKV[jigsaw.CellCoord];
         if (target.fixedPos)
             return;
 
@@ -295,7 +296,7 @@ public class GameManager : MonoSingletion<GameManager>
         RegisterObject(target);
     }
 
-    public bool CheckLegalTargetPos(Vector2 targetPos)
+    public bool CheckLegalTargetPos(Vector3Int targetPos)
     {
         Jigsaw target = senceGameObjectCacheKV[targetPos];
         return !target.fixedPos;
