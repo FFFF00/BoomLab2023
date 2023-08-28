@@ -17,6 +17,7 @@ public class Jigsaw : MonoBehaviour
 
     [SerializeField]
     private Vector3Int CoordInGrid;
+    [SerializeField] private Vector3 LocalPosInGrid;
 
     private SpriteRenderer jigsawSprite;
     private PlayerInput input;
@@ -58,14 +59,14 @@ public class Jigsaw : MonoBehaviour
         //float x = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - centerPos.x), 0, 1);
         //float y = Mathf.Clamp(Mathf.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - centerPos.y), 0, 1);
         Vector3Int coord = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        Vector3 targetPos = grid.CellToLocal(coord) + pivotOffset;
+        
         //Vector2 targetPos = new Vector2(gridSize * x, gridSize * y);
         if (!GameManager.Instance.CheckLegalTargetPos(coord))
             return;
-        transform.localPosition = targetPos;
+        MoveTo(coord);
+
         GameManager.Instance.UpdateObject(this);
 
-        jigsawSprite.transform.DOMove(transform.position, 0.5f);
 
         //jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + Vector3.one, 0.5f);
         //Debug.Log(name + " 被抓了! "); //+ Time.frameCount);
@@ -96,15 +97,16 @@ public class Jigsaw : MonoBehaviour
         get
         {
             CoordInGrid = grid.WorldToCell(transform.position);
+            LocalPosInGrid = grid.WorldToLocal(transform.position);
             return CoordInGrid;
         }
     }
 
     public void MoveTo(Vector3Int coord)
     {
-        var targetPos = grid.CellToWorld(coord) + pivotOffset;
-        transform.position = targetPos;
-        jigsawSprite.transform.DOMove(targetPos, 0.5f);
+        Vector3 targetPos = grid.CellToLocal(coord) + pivotOffset;
+        transform.localPosition = targetPos;
+        jigsawSprite.transform.DOMove(transform.position, 0.5f);
         //Debug.Log(name + " 动了 " + Time.frameCount);
     }
 
