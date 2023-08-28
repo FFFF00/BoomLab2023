@@ -1,5 +1,8 @@
 ->level1_flow ->
 ->level2_flow ->
+->level3_flow ->
+->level4_flow ->
+->level5_flow ->
 END
 
 === level1_flow() ===
@@ -7,8 +10,18 @@ END
 ->->
 
 === level2_flow()===
-->level_flow(->enter_new_level, ->level2_story, ->level2_end, ->game_loop)
+->level_flow(->enter_new_level, ->level_story_empty, ->level_end_empty, ->game_loop)
 ->->
+
+=== level3_flow ===
+-> level_flow(->empty, ->level3_story, ->level_end_empty, ->game_loop )
+
+=== level4_flow ===
+-> level_flow(->enter_new_level, ->level_story_empty, ->level_end_empty, ->game_loop)
+
+===level5_flow ===
+-> level_flow(->enter_new_level, ->level_story_empty, ->level5_end, ->game_loop )
+
 
 === level_flow (-> level_start, ->levelbody, ->level_end, ->loop) ===
 -> level_start ->
@@ -88,12 +101,38 @@ END
 -> complete_level
 
 
-=== level2_story ===
-关卡2
+=== level_story_empty ===
+->empty
 ->->
 
-=== level2_end ===
-还是找不到出口，怎么办！
+=== level_end_empty ===
 ->complete_level
+
+
+=== level3_story ===
+呼叫地面控制中心，你们有没有觉得很奇怪？
+控制中心回复：从数据上来看，没有奇怪的地方，你的意思是说？
+自从靠近宇宙的边界之后，这里的数据到处都显示异常，怪事频发。
+但是探索者号的状态却很正常，这种正常就已经很奇怪了。
+会不会是有什么东西正在操纵我们？操纵这片空间？
+控制中心回复：请将注意力集中在任务上。
 ->->
+
+=== level5_end ===
+……等一下，有点不对劲。
+呼叫地面控制中心，我们无法进入空间裂隙，怎么回事？
+切换到可见光谱扫描……空间裂隙那边好像有什么东西。
+控制中心回复：探索者号，汇报你们所看到的东西。
+我不知道，我只看到一块透明平面阻挡了我们的去路。
+这块平面的背后有着什么物体正在移动，看不清楚，也扫描不到。
+朝头顶上望去，我发现数万个光点排列整齐，在我们身后散发光芒。
+感觉像是身处于一个巨大系统的一部分，渺小得能够挤进夹缝。
+控制中心回复：探索者号，你们受到了电磁波的干扰，听得见吗？
+我们正在尝试穿越屏幕，注意到了一个算法……
+控制中心回复：听得见吗？探索者号，听到请回复。
+听得见吗？探索者号？
+听得见吗？
+（已经断开与探索者号的联络。）
+->->
+
         
