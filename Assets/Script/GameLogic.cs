@@ -142,10 +142,12 @@ public class GameLogic : MonoBehaviour
     public void EnableCommonAction()
     {
         commonActions.Enable();
+        InputManger.Instance.InputEnable();
     }
     public void DisableCommonAction()
     {
         commonActions.Disable();
+        InputManger.Instance.InputDisable();
     }
     private async UniTask TemporarilyDisableUIAction(int duration)
     {

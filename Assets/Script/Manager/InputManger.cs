@@ -53,7 +53,7 @@ public class InputManger : MonoSingletion<InputManger>
         //MessageManager.Instance.AddListener(MessageManager.MessageId.ResetEffectBegin, InputEnable);
     }
 
-    private void InputDisable(Message message = null)
+    public void InputDisable(Message message = null)
     {
         playerInput.Disable();
         dir = Vector2.zero;
@@ -66,7 +66,7 @@ public class InputManger : MonoSingletion<InputManger>
         
     }
     
-    private void InputEnable(Message message = null)
+    public void InputEnable(Message message = null)
     {
         playerInput.Enable();
     }
