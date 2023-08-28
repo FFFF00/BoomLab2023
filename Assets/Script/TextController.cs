@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class TextController : MonoBehaviour
 {
     [SerializeField] private InkStoryManager storyManager;
@@ -14,7 +15,17 @@ public class TextController : MonoBehaviour
 
     public int textSpeedMilisecond = 50;
 
+    [SerializeField] public List<AudioClip> typingClips;
+
     private CancellationTokenSource cancelToken;
+    private AudioSource typingAudioSource;
+    private System.Random random;
+
+    private void Awake()
+    {
+        typingAudioSource = GetComponent<AudioSource>();
+        random = new System.Random();
+    }
 
     public bool DisplayOneLinePlotText()
     {
@@ -60,6 +71,7 @@ public class TextController : MonoBehaviour
             {
                 await UniTask.Delay(textSpeedMilisecond, cancellationToken: cancelToken.Token);
                 text.text += c;
+                typingAudioSource.PlayOneShot(getRandomAudioClip());
             }
 
         }
@@ -67,5 +79,11 @@ public class TextController : MonoBehaviour
         {
             text.text = string.Empty;
         }
+    }
+
+    private AudioClip getRandomAudioClip()
+    {
+        int rand = random.Next(typingClips.Count);
+        return typingClips[rand];
     }
 }

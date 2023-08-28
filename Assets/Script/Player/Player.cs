@@ -80,7 +80,7 @@ public class Player : Unit
     private void WalkUpdate()
     {
         if(dir != Vector2.zero)
-            GameLogic.Instance.ShowActionText(PlayerAction.move);
+            GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.move);
         rb.velocity = dir.normalized * speed;
         lastFramePos = currFramePos;
         currFramePos = transform.position;

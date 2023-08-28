@@ -48,6 +48,8 @@ public class Jigsaw : MonoBehaviour
         GameManager.Instance.UpdateObject(this);
         
         jigsawSprite.transform.DOMove(transform.position, 0.5f);
+        GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.moveTile);
+
         //jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + Vector3.one, 0.5f);
         //Debug.Log(name + " 被抓了! "); //+ Time.frameCount);
     }
@@ -62,7 +64,7 @@ public class Jigsaw : MonoBehaviour
             transform.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f).OnComplete(() => rolling = false);
             jigsawSprite.transform.DORotate(jigsawSprite.transform.rotation.eulerAngles + new Vector3(0,0,90), 0.5f);
             rolling = true;
-            GameLogic.Instance.ShowActionText(PlayerAction.rotate);
+            GameLogic.Instance.PlayActionTextAndAudio(PlayerAction.rotate);
         }
     }
 

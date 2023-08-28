@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameLogic : MonoBehaviour
 {
     public static GameLogic Instance;
@@ -14,6 +15,9 @@ public class GameLogic : MonoBehaviour
     [SerializeField]
     private TextController textController;
 
+    [SerializeField]
+    private AudioClip rotateAudioClip, moveTileAudioClip;
+    private AudioSource audioSource;
 
     private DefaultInputConfig input;
     [HideInInspector]
@@ -30,6 +34,7 @@ public class GameLogic : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -82,11 +87,7 @@ public class GameLogic : MonoBehaviour
         }
     }
 
-    public void ShowActionText(int op)
-    {
-        ShowActionText((PlayerAction)op);
-    }
-    public void ShowActionText(PlayerAction op)
+    public void PlayActionTextAndAudio(PlayerAction op)
     {
         switch (op)
         {
@@ -98,6 +99,7 @@ public class GameLogic : MonoBehaviour
                 };
                 break;
             case PlayerAction.rotate:
+                audioSource.PlayOneShot(rotateAudioClip);
                 if (allowRotateTileTextUpdate)
                 {
                     _ = textController.DisplayActionText(op);
@@ -105,6 +107,7 @@ public class GameLogic : MonoBehaviour
                 };
                 break;
             case PlayerAction.moveTile:
+                audioSource.PlayOneShot(moveTileAudioClip);
                 if (allowMoveTileTextUpdate)
                 {
                     _ = textController.DisplayActionText(op);
