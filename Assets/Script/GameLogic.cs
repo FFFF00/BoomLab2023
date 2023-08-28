@@ -62,6 +62,10 @@ public class GameLogic : MonoBehaviour
         }
     }
 
+    public void OnStoryEnd()
+    {
+        Application.Quit();
+    }
     private void ShowOneLineOfDialog()
     {
         bool canContinue = textController.DisplayOneLinePlotText();

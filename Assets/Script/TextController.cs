@@ -27,6 +27,10 @@ public class TextController : MonoBehaviour
             {
                 return DisplayOneLinePlotText();
             }
+            if (str == "END")
+            {
+                GameLogic.Instance.OnStoryEnd();
+            }
             _ = DisplayTextByCharacter(str);
             return true;
         }
