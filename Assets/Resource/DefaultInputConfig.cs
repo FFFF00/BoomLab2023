@@ -15,10 +15,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @PlayerInput: IInputActionCollection2, IDisposable
+public partial class @DefaultInputConfig: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @PlayerInput()
+    public @DefaultInputConfig()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInput"",
@@ -391,8 +391,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Common_AttackRelease;
     public struct CommonActions
     {
-        private @PlayerInput m_Wrapper;
-        public CommonActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        private @DefaultInputConfig m_Wrapper;
+        public CommonActions(@DefaultInputConfig wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Common_Move;
         public InputAction @Dash => m_Wrapper.m_Common_Dash;
         public InputAction @DashRelease => m_Wrapper.m_Common_DashRelease;
@@ -466,8 +466,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Link_Dash;
     public struct LinkActions
     {
-        private @PlayerInput m_Wrapper;
-        public LinkActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        private @DefaultInputConfig m_Wrapper;
+        public LinkActions(@DefaultInputConfig wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Link_Move;
         public InputAction @Dash => m_Wrapper.m_Link_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Link; }
@@ -519,8 +519,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_DialogNext;
     public struct UIActions
     {
-        private @PlayerInput m_Wrapper;
-        public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        private @DefaultInputConfig m_Wrapper;
+        public UIActions(@DefaultInputConfig wrapper) { m_Wrapper = wrapper; }
         public InputAction @DialogNext => m_Wrapper.m_UI_DialogNext;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }

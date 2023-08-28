@@ -15,11 +15,11 @@ public class GameLogic : MonoBehaviour
     private TextController textController;
 
 
-    private PlayerInput input;
+    private DefaultInputConfig input;
     [HideInInspector]
-    public PlayerInput.UIActions uiActions;
+    public DefaultInputConfig.UIActions uiActions;
     [HideInInspector]
-    public PlayerInput.CommonActions commonActions;
+    public DefaultInputConfig.CommonActions commonActions;
 
     private bool allowMoveTextUpdate = true, allowMoveTileTextUpdate = true, allowRotateTileTextUpdate = true;
     private int intervalMiliseconds = 8000;
@@ -33,7 +33,7 @@ public class GameLogic : MonoBehaviour
     }
     private void OnEnable()
     {
-        input = new PlayerInput();
+        input = new DefaultInputConfig();
         uiActions = input.UI;
         commonActions = input.Common;
         EnableUIAction();
@@ -47,7 +47,7 @@ public class GameLogic : MonoBehaviour
         textController.DisplayOneLinePlotText();
     }
 
-    private PlayerInput.CommonActions GetCommonActions()
+    private DefaultInputConfig.CommonActions GetCommonActions()
     {
         return commonActions;
     }

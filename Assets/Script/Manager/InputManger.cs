@@ -20,6 +20,11 @@ public class InputManger : MonoSingletion<InputManger>
 
     public float sentive = 3f;
     public float DeadZone = 0.1f;
+    protected override void Awake()
+    {
+        base.Awake();
+        playerInput = GetComponent<PlayerInput>();
+    }
     void Start()
     {
         AddListener();
@@ -55,7 +60,7 @@ public class InputManger : MonoSingletion<InputManger>
 
     public void InputDisable(Message message = null)
     {
-        playerInput.Disable();
+        playerInput.enabled = false;
         dir = Vector2.zero;
         dirRaw = Vector2.zero;
         
@@ -68,7 +73,7 @@ public class InputManger : MonoSingletion<InputManger>
     
     public void InputEnable(Message message = null)
     {
-        playerInput.Enable();
+        playerInput.enabled = false;
     }
 
     void OnMove(InputValue value)
