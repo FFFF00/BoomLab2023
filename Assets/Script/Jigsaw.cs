@@ -20,7 +20,7 @@ public class Jigsaw : MonoBehaviour
     [SerializeField] private Vector3 LocalPosInGrid;
 
     private SpriteRenderer jigsawSprite;
-    private PlayerInput input;
+    //private PlayerInput input;
 
 
     private Grid grid;
@@ -30,7 +30,7 @@ public class Jigsaw : MonoBehaviour
 
     private void Awake()
     {
-        input = new PlayerInput();
+        //input = new PlayerInput();
         grid = GetComponentInParent<Grid>();
 
         //align to grid

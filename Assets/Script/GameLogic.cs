@@ -80,7 +80,7 @@ public class GameLogic : MonoBehaviour
         }
         else
         {
-            //ÒÑ¾­Íê³Éµ±Ç°¾çÇé¶Ô»°
+            //å·²ç»å®Œæˆå½“å‰å‰§æƒ…å¯¹è¯
             taskCompleter.TrySetResult();
             DisableUIAction();
             EnableCommonAction();
@@ -121,7 +121,7 @@ public class GameLogic : MonoBehaviour
     {
         storyManager.ExitLevel();
         ShowOneLineOfDialog();
-        taskCompleter = new UniTaskCompletionSource();//ÖØÖÃ¾çÇé¶Ô»°×´Ì¬
+        taskCompleter = new UniTaskCompletionSource();//é‡ç½®å‰§æƒ…å¯¹è¯çŠ¶æ€
         EnableUIAction();
         DisableCommonAction();
     }
@@ -130,7 +130,7 @@ public class GameLogic : MonoBehaviour
     {
         storyManager.NextLevel();
         ShowOneLineOfDialog();
-        taskCompleter = new UniTaskCompletionSource();//ÖØÖÃ¾çÇé¶Ô»°×´Ì¬
+        taskCompleter = new UniTaskCompletionSource();//é‡ç½®å‰§æƒ…å¯¹è¯çŠ¶æ€
         EnableUIAction();
         DisableCommonAction();
     }
@@ -140,7 +140,7 @@ public class GameLogic : MonoBehaviour
         uiActions.Disable();
     }
 
-    //µ±ÄÇ±ß½øÈë¹Ø¿¨Íê½á/½øÈë×´Ì¬¾ÍÖØĞÂÆôÓÃUIÂß¼­
+    //å½“é‚£è¾¹è¿›å…¥å…³å¡å®Œç»“/è¿›å…¥çŠ¶æ€å°±é‡æ–°å¯ç”¨UIé€»è¾‘
     public void EnableUIAction()
     {
         uiActions.Enable();
