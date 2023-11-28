@@ -38,7 +38,7 @@ public class InkStoryManager : MonoBehaviour
     public string SelectAction(PlayerAction op)
     {
         if(mainStory.canContinue) { throw new Exception("Wrong state! story can still proceed but you are asking for choice."); }
-        //mainStory.ChooseChoiceIndex(((int)op));//ÓÐµãtricky£¬²»ÒªÇáÒ×¸ü¸Ä
+        //mainStory.ChooseChoiceIndex(((int)op));//æœ‰ç‚¹trickyï¼Œä¸è¦è½»æ˜“æ›´æ”¹
         string str = op switch
         {
             PlayerAction.rotate => "rotate",
@@ -55,12 +55,12 @@ public class InkStoryManager : MonoBehaviour
     public void ExitLevel()
     {
         ChooseChoiceWithTag("exit-level");
-        //mainStory.Continue();//Ìø¹ý»»ÐÐ·û¿ÕÐÐ
+        //mainStory.Continue();//è·³è¿‡æ¢è¡Œç¬¦ç©ºè¡Œ
     }
     public void NextLevel()
     {
         ChooseChoiceWithTag("next-level");
-        //mainStory.Continue();//Ìø¹ý»»ÐÐ·û¿ÕÐÐ
+        //mainStory.Continue();//è·³è¿‡æ¢è¡Œç¬¦ç©ºè¡Œ
     }
 
     public void ChooseChoiceWithTag(string tag)
@@ -73,6 +73,8 @@ public class InkStoryManager : MonoBehaviour
         }
         Debug.Log($"Tag {tag} not found in current choices!");
     }
+
+    public bool EndOfStory => !mainStory.canContinue && mainStory.currentChoices.Count == 0;
 }
 
 

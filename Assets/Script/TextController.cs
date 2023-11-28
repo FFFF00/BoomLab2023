@@ -29,8 +29,12 @@ public class TextController : MonoBehaviour
 
     public bool DisplayOneLinePlotText()
     {
-        bool canContinue;
-        string str = storyManager.StepStory(out canContinue);
+        if (storyManager.EndOfStory)
+        {
+            GameLogic.Instance.OnStoryEnd();
+        }
+
+        string str = storyManager.StepStory(out var canContinue);
 
         if (canContinue)
         {
@@ -38,10 +42,7 @@ public class TextController : MonoBehaviour
             {
                 return DisplayOneLinePlotText();
             }
-            if (str == "END")
-            {
-                GameLogic.Instance.OnStoryEnd();
-            }
+            
             _ = DisplayTextByCharacter(str);
             return true;
         }
@@ -62,9 +63,9 @@ public class TextController : MonoBehaviour
 
     public async UniTask DisplayTextByCharacter(string str)
     {
-        cancelToken?.Cancel();//È¡ÏûÖ®Ç°Êä³ö²Ù×÷
-        text.text = string.Empty;//ÖÃ¿Õ
-        cancelToken = new CancellationTokenSource();//´ú±í±¾´Î²Ù×÷
+        cancelToken?.Cancel();//È¡ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        text.text = string.Empty;//ï¿½Ã¿ï¿½
+        cancelToken = new CancellationTokenSource();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½
         try
         {
             foreach (var c in str)

@@ -49,7 +49,7 @@ public class GameLogic : MonoBehaviour
     void Start()
     {
         taskCompleter = new UniTaskCompletionSource();
-        textController.DisplayOneLinePlotText();
+        //textController.DisplayOneLinePlotText();
     }
 
     private DefaultInputConfig.CommonActions GetCommonActions()
