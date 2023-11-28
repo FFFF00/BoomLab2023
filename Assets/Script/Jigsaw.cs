@@ -17,7 +17,7 @@ public class Jigsaw : MonoBehaviour
 
     [SerializeField]
     private Vector3Int CoordInGrid;
-    [SerializeField] private Vector3 LocalPosInGrid;
+    [SerializeField] private Vector2 LocalPosInGrid;
 
     private SpriteRenderer jigsawSprite;
     //private PlayerInput input;
@@ -26,7 +26,7 @@ public class Jigsaw : MonoBehaviour
     private Grid grid;
 
     //prefab的pivot被设置成了center中间，这和grid这套系统从左下角开始算格子的逻辑不符，必须加offset
-    public Vector3 pivotOffset => grid.cellSize / 2;
+    public Vector2 pivotOffset => grid.cellSize / 2;
 
     private void Awake()
     {
@@ -35,10 +35,9 @@ public class Jigsaw : MonoBehaviour
 
         //align to grid
         Vector3Int coord = grid.WorldToCell(transform.position);
-        Vector3 snappedLocalPos = grid.CellToLocal(coord) + pivotOffset;
+        Vector3 snappedLocalPos = grid.CellToLocal(coord) + (Vector3) pivotOffset;
         transform.localPosition = snappedLocalPos;
 
-        GameManager.Instance.RegisterObject(this);
 
         var list = GetComponentsInChildren<SpriteRenderer>(includeInactive: false);
         foreach (var sprite in list)
@@ -48,6 +47,12 @@ public class Jigsaw : MonoBehaviour
         }
         jigsawSprite.transform.parent = null;
         jigsawSprite.transform.position = transform.position;
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.RegisterObject(this);
+
     }
 
 
@@ -96,7 +101,7 @@ public class Jigsaw : MonoBehaviour
     {
         get
         {
-            CoordInGrid = grid.WorldToCell(transform.position);
+            CoordInGrid = (Vector3Int) grid.WorldToCell(transform.position);
             LocalPosInGrid = grid.WorldToLocal(transform.position);
             return CoordInGrid;
         }
@@ -104,7 +109,7 @@ public class Jigsaw : MonoBehaviour
 
     public void MoveTo(Vector3Int coord)
     {
-        Vector3 targetPos = grid.CellToLocal(coord) + pivotOffset;
+        Vector3 targetPos = grid.CellToLocal((Vector3Int) coord) + (Vector3)pivotOffset;
         transform.localPosition = targetPos;
         jigsawSprite.transform.DOMove(transform.position, 0.5f);
         //Debug.Log(name + " 动了 " + Time.frameCount);

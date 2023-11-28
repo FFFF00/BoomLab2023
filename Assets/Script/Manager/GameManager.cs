@@ -299,9 +299,10 @@ public class GameManager : MonoSingletion<GameManager>
 
     public bool CheckLegalTargetPos(Vector3Int targetPos)
     {
-        if (!sceneGameObjectCacheKV.Keys.Contains(targetPos))
+        var pos2D = new Vector3Int(targetPos.x, targetPos.y, 0);
+        if (!sceneGameObjectCacheKV.Keys.Contains(pos2D))
             return false;
-        Jigsaw target = sceneGameObjectCacheKV[targetPos];
+        Jigsaw target = sceneGameObjectCacheKV[pos2D];
         return !target.fixedPos;
     }
 
