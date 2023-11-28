@@ -19,8 +19,7 @@ public class BoundPlacer : MonoBehaviour
     {
         var centerpos = GetCenterPos();
         
-        boundRoot = Instantiate(boundRootPrefab);
-        boundRoot.transform.parent = this.transform;
+        boundRoot = Instantiate(boundRootPrefab, this.transform, true);
         boundRoot.transform.localPosition = centerpos;
         boundRoot.transform.localScale = transform.localScale;
     }
